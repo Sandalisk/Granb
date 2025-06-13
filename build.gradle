@@ -19,6 +19,17 @@ dependencies {
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 }
 
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src/client/java']
+        }
+        resources {
+            srcDirs = ['src/client/resources']
+        }
+    }
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
