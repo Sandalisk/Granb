@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "id": "blockfacecullingfix",
+  "version": "${version}",
+  "name": "BlockFaceCullingFix",
+  "description": "Improves block face culling to reduce unnecessary block faces rendered and boost FPS.",
+  "authors": [
+    "YourName"
+  ],
+  "contact": {
+    "homepage": "https://example.com",
+    "sources": "https://github.com/example/blockfacecullingfix"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.example.blockfacecullingfix.BlockFaceCullingFixMod"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric": "*",
+    "minecraft": "1.21.1"
+  },
+  "mixins": [
+    "blockfacecullingfix.mixins.json"
+  ]
+}
