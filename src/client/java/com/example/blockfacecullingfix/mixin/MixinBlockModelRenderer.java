@@ -8,18 +8,24 @@ import net.minecraft.block.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.BitSet;
 
 @Mixin(BlockModelRenderer.class)
 public class MixinBlockModelRenderer {
 
-    @Inject(method = "isFaceVisible", at = @At("HEAD"), cancellable = true)
-    private void onIsFaceVisible(BlockView world, BlockPos pos, Direction face, CallbackInfoReturnable<Boolean> cir) {
+    /**
+     * Инъекция в метод method_3364 — заменяет старый isFaceVisible.
+     * Прерывает отрисовку граней, которые закрыты соседним непрозрачным блоком.
+     */
+    @Inject(method = "method_3364", at = @At("HEAD"), cancellable = true)
+    private void onGetQuadDimensions(BlockView world, BlockState state, BlockPos pos, int[] vertexData, Direction face, float[] box, BitSet flags, CallbackInfo ci) {
         BlockPos neighborPos = pos.offset(face);
         BlockState neighborState = world.getBlockState(neighborPos);
 
         if (neighborState.isOpaqueFullCube(world, neighborPos)) {
-            cir.setReturnValue(false);
+            ci.cancel(); // отменяем отрисовку грани
         }
     }
 }
