@@ -1,0 +1,32 @@
+name: Build BlockFaceCullingFix Mod (1.21.1)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: 21
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: 8.6
+
+      - name: Build Mod
+        run: gradle build
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4.3.0
+        with:
+          name: async-chunk-loader
+          path: build/libs/*.jar-*.jar
