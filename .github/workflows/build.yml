@@ -26,7 +26,7 @@ jobs:
         run: gradle build
 
       - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4.3.0
-        with:
-          name: blockfacecullingfix
-          path: build/libs/*.jar-*.jar
+  uses: actions/upload-artifact@v4.3.0
+  with:
+    name: blockfacecullingfix
+    path: build/libs/*.jar
